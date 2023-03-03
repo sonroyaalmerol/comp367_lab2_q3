@@ -14,5 +14,6 @@
   %>
   <h2><%= greeting %>, Son Roy, Welcome to COMP367</h2>
 
+  
 </body>
 </html>
