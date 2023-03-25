@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     DOCKER_HUB = credentials('DOCKER_HUB')
-    DOCKER_IMAGE_NAME = 'cc_comp367_almerol/lab3'
+    DOCKER_IMAGE_NAME = 'cc_comp367_almerol_lab3'
   }
 
   stages {
