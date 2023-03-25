@@ -1,6 +1,6 @@
 <html>
 <body>
-
+  <%@ page import="java.util.Calendar" %>
   <% 
    Calendar cal = Calendar.getInstance();
    int hour = cal.get(Calendar.HOUR_OF_DAY);

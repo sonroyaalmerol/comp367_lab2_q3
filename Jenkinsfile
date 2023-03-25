@@ -1,14 +1,62 @@
 pipeline {
   agent any
+  tools {
+    maven 'maven-3.8.7'
+    jdk 'jdk-11.0.18'
+  }
+  environment {
+    DOCKER_HUB = credentials('DOCKER_HUB')
+    DOCKER_IMAGE_NAME = 'cc_comp367_almerol/lab3'
+  }
+
   stages {
-    stage('Build') {
+    stage('Check out') {
       steps {
-        sh 'mvn clean package'
+        git branch: 'main', url: 'https://github.com/sonroyaalmerol/comp367_lab2_q3.git'
       }
     }
-    stage('Test') {
+    
+    stage('Build maven project') {
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+    
+    stage('Unit test') {
       steps {
         sh 'mvn test'
+      }
+    }
+    
+    stage('Docker build') {
+      steps {
+        script {
+          sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+        }
+      }
+    }
+
+    stage('Docker login') {
+      steps {
+        script {
+          sh 'docker login -u ${DOCKER_HUB.username} -p ${DOCKER_HUB.password}'
+        }
+      }
+    }
+
+    stage('Docker push') {
+      steps {
+        script {
+          sh 'docker push ${DOCKER_IMAGE_NAME}'
+        }
+      }
+    }
+
+    stage('Docker logout') {
+      steps {
+        script {
+          sh 'docker logout'
+        }
       }
     }
   }
