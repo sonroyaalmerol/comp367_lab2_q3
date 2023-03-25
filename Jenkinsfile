@@ -27,7 +27,7 @@ pipeline {
     stage('Docker build') {
       steps {
         script {
-          sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+          sh 'docker build -t $DOCKER_IMAGE_NAME .'
         }
       }
     }
@@ -35,7 +35,7 @@ pipeline {
     stage('Docker login') {
       steps {
         script {
-          sh 'docker login -u ${DOCKER_HUB.username} -p ${DOCKER_HUB.password}'
+          sh 'docker login -u $DOCKER_HUB_USR -p $DOCKER_HUB_PSW'
         }
       }
     }
@@ -43,7 +43,7 @@ pipeline {
     stage('Docker push') {
       steps {
         script {
-          sh 'docker push ${DOCKER_IMAGE_NAME}'
+          sh 'docker push $DOCKER_IMAGE_NAME'
         }
       }
     }
