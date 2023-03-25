@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  tools {
+    maven 'maven-3.8.7'
+    jdk 'jdk-11.0.18'
+  }
   environment {
     DOCKER_HUB = credentials('DOCKER_HUB')
     DOCKER_IMAGE_NAME = 'cc_comp367_almerol/lab3'
